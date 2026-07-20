@@ -1,11 +1,6 @@
 package com.drmangotea.tfmg.base.events;
 
-import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.TFMGClient;
-import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnectorBlockEntity;
-import com.drmangotea.tfmg.content.electricity.measurement.MultimeterOverlayRenderer;
-import com.drmangotea.tfmg.content.electricity.network.transformer.small.TransformerBlockEntity;
-
 import com.drmangotea.tfmg.content.items.weapons.advanced_potato_cannon.AdvancedPotatoCannonItemRenderer;
 import com.drmangotea.tfmg.content.items.weapons.quad_potato_cannon.QuadPotatoCannonItemRenderer;
 import com.drmangotea.tfmg.registry.TFMGItems;
@@ -43,11 +38,6 @@ public class TFMGClientEvents {
 		TFMGClient.QUAD_POTATO_CANNON_RENDER_HANDLER.tick();
 		TFMGClient.ADVANCED_POTATO_CANNON_RENDER_HANDLER.tick();
 		TFMGClient.FLAMETHROWER_RENDER_HANDLER.tick();
-
-
-
-		TransformerBlockEntity.tickOutliner();
-		CableConnectorBlockEntity.tickOutliner();
 	}
 	@SubscribeEvent
 	public static void PlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
@@ -57,11 +47,6 @@ public class TFMGClientEvents {
 			player.getPersistentData().remove("IsUsingEngineController");
 	}
 
-	//@SubscribeEvent
-	public static void registerGuiOverlays(RegisterGuiLayersEvent event) {
-		event.registerAbove(VanillaGuiLayers.HOTBAR, TFMG.asResource("multimeter_info"), MultimeterOverlayRenderer.OVERLAY);
-
-	}
 	protected static boolean isGameActive() {
 		return !(Minecraft.getInstance().level == null || Minecraft.getInstance().player == null);
 	}

@@ -2,53 +2,59 @@ package com.drmangotea.tfmg.content.machinery.vat.electrode_holder;
 
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.TFMGRegistries;
+import com.drmangotea.tfmg.base.MachineEnergyStorage;
 import com.drmangotea.tfmg.base.TFMGUtils;
-import com.drmangotea.tfmg.base.lang.TFMGTexts;
 import com.drmangotea.tfmg.config.TFMGConfigs;
-import com.drmangotea.tfmg.content.electricity.base.ElectricBlockEntity;
 import com.drmangotea.tfmg.content.machinery.vat.base.IVatMachine;
 import com.drmangotea.tfmg.content.machinery.vat.base.VatBlock;
 import com.drmangotea.tfmg.content.machinery.vat.base.VatBlockEntity;
 import com.drmangotea.tfmg.content.machinery.vat.electrode_holder.electrode.Electrode;
-import com.drmangotea.tfmg.content.machinery.vat.industrial_mixer.IndustrialMixerBlockEntity;
+import com.drmangotea.tfmg.registry.TFMGBlockEntities;
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 import java.util.List;
 
-public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements IVatMachine {
+public class ElectrodeHolderBlockEntity extends SmartBlockEntity implements IVatMachine {
 
     Electrode electrode = TFMGUtils.getElectrode(TFMG.asResource("none"));
 
+    public MachineEnergyStorage energy;
+    public int feReceivedThisTick = 0;
+    private boolean wasOperational = false;
+
     public ElectrodeHolderBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
+        energy = new MachineEnergyStorage(getFEUsage());
     }
 
     @Override
-    public int getMaxVoltage() {
-        return 20000;
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
     }
 
-    @Override
-    public int getMaxCurrent() {
-        return 400;
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(
+                Capabilities.EnergyStorage.BLOCK,
+                TFMGBlockEntities.ELECTRODE_HOLDER.get(),
+                (be, side) -> side == Direction.UP || side == null ? be.energy : null
+        );
     }
 
-    @Override
-    public boolean hasElectricitySlot(Direction direction) {
-        return direction == Direction.UP;
+    public static int getFEUsage() {
+        return TFMGConfigs.common().machines.electrolysisFEUsage.get();
     }
-
 
     public boolean setElectrode(ItemStack modeItem, boolean simulate) {
         if (level == null) return false;
@@ -67,34 +73,26 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
     }
 
     @Override
-    public boolean makeMultimeterTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-
-        super.makeMultimeterTooltip(tooltip, isPlayerSneaking);
-        if (getCurrent() < TFMGConfigs.common().machines.electrolysisMinimumCurrent.get())
-            TFMGTexts.Multimeter.notEnoughCurrent(TFMGConfigs.common().machines.electrolysisMinimumCurrent.get()).forGoggles(tooltip);
-
-        return true;
-    }
-
-    @Override
     public void tick() {
         super.tick();
 
+        feReceivedThisTick = energy.consumeAll();
+
         if (level == null) return;
+
+        boolean operational = isOperational();
+        if (operational != wasOperational) {
+            wasOperational = operational;
+            if (!level.isClientSide)
+                VatBlock.updateVatState(getBlockState(), level, getBlockPos().relative(Direction.DOWN));
+        }
 
         var vatBE = level.getBlockEntity(getBlockPos().relative(Direction.DOWN));
         if (vatBE instanceof VatBlockEntity vat) {
             BlockPos electrodePos = getBlockPos().relative(Direction.DOWN);
-            this.electrode.tick(vat.getControllerBE(), this.level, electrodePos, isOperational(), this.level.isClientSide());
+            this.electrode.tick(vat.getControllerBE(), this.level, electrodePos, operational, this.level.isClientSide());
         }
     }
-
-    @Override
-    public float resistance() {
-        return this.electrode.getResistance();
-    }
-
-
 
     public boolean setElectrode(Electrode electrode, boolean simulate) {
         if (electrode != null) {
@@ -108,30 +106,19 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
         return false;
     }
 
-
     @Override
     public void remove() {
 
-        if (level.isClientSide || electrode.getItem()==null)
+        if (level.isClientSide || electrode.getItem() == null)
             return;
-
 
         ItemEntity itemToDrop = new ItemEntity(level, getBlockPos().getX() + 0.5f, getBlockPos().getY() + 0.5f, getBlockPos().getZ() + 0.5f, electrode.getStack());
 
         level.addFreshEntity(itemToDrop);
-
-
     }
-
-    @Override
-    public void onNetworkChanged(int oldVoltage, float oldPower) {
-        super.onNetworkChanged(oldVoltage, oldPower);
-        VatBlock.updateVatState(getBlockState(), level, getBlockPos().relative(Direction.DOWN));
-    }
-
 
     boolean isOperational() {
-        return getCurrent() >= TFMGConfigs.common().machines.electrolysisMinimumCurrent.get() && canWork();
+        return feReceivedThisTick >= getFEUsage();
     }
 
     @Override
@@ -142,16 +129,17 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
     @Override
     public void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
         compound.putString("Electrode", electrode.getKey().toString());
+        compound.putInt("ForgeEnergy", energy.getEnergyStored());
 
-        super.write(compound,registries , clientPacket);
+        super.write(compound, registries, clientPacket);
     }
 
     @Override
     protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-        super.read(compound,registries , clientPacket);
+        super.read(compound, registries, clientPacket);
 
+        energy.setEnergy(compound.getInt("ForgeEnergy"));
         setElectrode(TFMGUtils.getElectrode(ResourceLocation.parse(compound.getString("Electrode"))), false);
-
     }
 
     @Override
@@ -166,13 +154,15 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
 
     @Override
     public int getWorkPercentage() {
-        return (int) ((getPowerUsage() / 5000) * 100);
+        int usage = getFEUsage();
+        if (usage <= 0)
+            return 100;
+        return Math.min(100, feReceivedThisTick * 100 / usage);
     }
 
     @Override
     public void vatUpdated(VatBlockEntity be) {
         IVatMachine.super.vatUpdated(be);
     }
-
 
 }

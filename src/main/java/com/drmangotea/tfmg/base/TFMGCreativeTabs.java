@@ -1,7 +1,6 @@
 package com.drmangotea.tfmg.base;
 
 import com.drmangotea.tfmg.content.decoration.kinetics.encased.TFMGEncasedCogwheelBlock;
-import com.drmangotea.tfmg.content.machinery.misc.winding_machine.SpoolItem;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGDataComponents;
 import com.drmangotea.tfmg.registry.TFMGItems;
@@ -60,9 +59,6 @@ public class TFMGCreativeTabs {
                     continue;
                 if (item.get() instanceof SequencedAssemblyItem)
                     continue;
-                if (item.get() instanceof SpoolItem && !item.is(TFMGItems.EMPTY_SPOOL.get())) {
-                    continue;
-                }
                 event.accept(item.get(), CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
             }
 
@@ -92,9 +88,6 @@ public class TFMGCreativeTabs {
 
         list.add(TFMGItems.LIT_LITHIUM_BLADE);
         list.add(TFMGItems.GOLDEN_TURBO);
-        list.add(TFMGItems.ALUMINUM_SPOOL);
-        list.add(TFMGItems.COPPER_SPOOL);
-        list.add(TFMGItems.CONSTANTAN_SPOOL);
 
 
         return list;
@@ -102,18 +95,6 @@ public class TFMGCreativeTabs {
 
     public static List<ItemStack> customAdditions() {
         List<ItemStack> list = new ArrayList<>();
-
-        ItemStack copperSpool = TFMGItems.COPPER_SPOOL.asStack();
-        copperSpool.set(TFMGDataComponents.SPOOL_AMOUNT, 1000);
-        list.add(copperSpool);
-
-        ItemStack aluminumSpool = TFMGItems.ALUMINUM_SPOOL.asStack();
-        aluminumSpool.set(TFMGDataComponents.SPOOL_AMOUNT, 1000);
-        list.add(aluminumSpool);
-
-        ItemStack constantanSpool = TFMGItems.CONSTANTAN_SPOOL.asStack();
-        constantanSpool.set(TFMGDataComponents.SPOOL_AMOUNT, 1000);
-        list.add(constantanSpool);
 
         CompoundTag gasolineTag = new CompoundTag();
         gasolineTag.putString("gasoline", "c:gasoline");

@@ -23,13 +23,6 @@ public class ElectricPumpBlock extends PumpBlock  {
 
 
     @Override
-    public void onPlace(BlockState pState, Level level, BlockPos pos, BlockState pOldState, boolean pIsMoving) {
-        super.onPlace(pState, level, pos, pOldState, pIsMoving);
-        withBlockEntityDo(level,pos, be->((ElectricPumpBlockEntity)be).onPlaced());
-    }
-
-
-    @Override
     public VoxelShape getShape(BlockState state, BlockGetter p_220053_2_, BlockPos p_220053_3_, CollisionContext p_220053_4_) {
         return TFMGShapes.ELECTRIC_PUMP.get(state.getValue(FACING));
     }

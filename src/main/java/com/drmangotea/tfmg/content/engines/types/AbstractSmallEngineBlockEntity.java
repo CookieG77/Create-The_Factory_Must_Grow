@@ -110,23 +110,6 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
     }
 
     @Override
-    public int voltageGeneration() {
-
-        if (upgrade.isPresent() && upgrade.get().getItem() == TFMGBlocks.GENERATOR.asItem())
-            return (int) (20 * (rpm / 500));
-
-        return 0;
-    }
-
-    @Override
-    public float powerGeneration() {
-        if (upgrade.isPresent() && upgrade.get().getItem() == TFMGBlocks.GENERATOR.asItem())
-            return (int) rpm;
-
-        return 0;
-    }
-
-    @Override
     public void lazyTick() {
         super.lazyTick();
         upgrade.ifPresent(engineUpgrade -> engineUpgrade.lazyTickUpgrade(this));

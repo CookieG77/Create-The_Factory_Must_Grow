@@ -1,6 +1,8 @@
 package com.drmangotea.tfmg.content.electricity.utilities.electric_pump;
 
-import com.drmangotea.tfmg.content.electricity.base.*;
+import com.drmangotea.tfmg.base.MachineEnergyStorage;
+import com.drmangotea.tfmg.config.TFMGConfigs;
+import com.drmangotea.tfmg.registry.TFMGBlockEntities;
 import com.simibubi.create.content.fluids.FluidPropagator;
 import com.simibubi.create.content.fluids.FluidTransportBehaviour;
 import com.simibubi.create.content.fluids.PipeConnection;
@@ -9,6 +11,7 @@ import com.simibubi.create.content.fluids.pump.PumpBlockEntity;
 import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.infrastructure.config.AllConfigs;
 import net.createmod.catnip.data.Couple;
 import net.createmod.catnip.data.Pair;
 import net.createmod.catnip.math.BlockFace;
@@ -22,29 +25,70 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
 import java.util.*;
 
 import static com.simibubi.create.content.kinetics.base.DirectionalKineticBlock.FACING;
 
-public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectric {
+public class ElectricPumpBlockEntity extends PumpBlockEntity {
 
-    public ElectricBlockValues data = new ElectricBlockValues(getPos());
-
+    public MachineEnergyStorage energy;
+    public int feConsumedThisTick = 0;
 
     public ElectricPumpBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
         setLazyTickRate(10);
-        data.connectNextTick = true;
-
+        energy = new MachineEnergyStorage(getFEUsage());
     }
+
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(
+                Capabilities.EnergyStorage.BLOCK,
+                TFMGBlockEntities.ELECTRIC_PUMP.get(),
+                (be, side) -> be.energy
+        );
+    }
+
+    public static int getFEUsage() {
+        return TFMGConfigs.common().machines.electricPumpFEUsage.get();
+    }
+
+    public static float getStrengthMultiplier() {
+        return TFMGConfigs.common().machines.electricPumpStrengthMultiplier.getF();
+    }
+
+    /**
+     * @return 0..1 fraction of full strength based on how much FE was received last tick.
+     */
+    public float getPowerRatio() {
+        int usage = getFEUsage();
+        if (usage <= 0)
+            return 0;
+        return Math.max(0f, Math.min(1f, (float) feConsumedThisTick / usage));
+    }
+
+    public float getPressure() {
+        float ratio = getPowerRatio();
+        if (ratio == 0)
+            return 0;
+        return AllConfigs.server().kinetics.maxRotationSpeed.get() * getStrengthMultiplier() * ratio;
+    }
+
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 
         behaviours.add(new ElectricPumpTransferBehavior(this));
         registerAwardables(behaviours, FluidPropagator.getSharedTriggers());
         registerAwardables(behaviours, AllAdvancements.PUMP);
+    }
+
+    @Override
+    public void tick() {
+        // Consume whatever FE arrived since the last tick; this is what powers the pump.
+        feConsumedThisTick = energy.consumeAll();
+        super.tick();
     }
 
     protected void distributePressureTo(Direction side) {
@@ -69,7 +113,7 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
 
             List<Pair<Integer, BlockPos>> frontier = new ArrayList<>();
             Set<BlockPos> visited = new HashSet<>();
-            int maxDistance = (int) (FluidPropagator.getPumpRange()*Math.min(6.7f,data.getVoltage()*0.02));
+            int maxDistance = (int) (FluidPropagator.getPumpRange() * getStrengthMultiplier() * getPowerRatio());
             frontier.add(Pair.of(1, start.getConnectedPos()));
 
             while (!frontier.isEmpty()) {
@@ -133,7 +177,7 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
         Map<Integer, Set<BlockFace>> validFaces = new HashMap<>();
         searchForEndpointRecursively(pipeGraph, targets, validFaces,
                 new BlockFace(start.getPos(), start.getOppositeFace()), pull);
-        float pressure = getPowerUsage() == 0 ? 0 : Math.min(1500,data.getVoltage()*2);
+        float pressure = getPressure();
         for (Set<BlockFace> set : validFaces.values()) {
             int parallelBranches = Math.max(1, set.size() - 1);
             for (BlockFace face : set) {
@@ -194,65 +238,16 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
 
     //////////////////////
 
-
-
-
     @Override
-    public LevelAccessor getLevelAccessor() {
-        return level;
+    protected void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+        super.write(compound, registries, clientPacket);
+        compound.putInt("ForgeEnergy", energy.getEnergyStored());
     }
-
-
-
-    @Override
-    public void lazyTick() {
-        super.lazyTick();
-        lazyTickElectricity();
-    }
-
-    @Override
-    public ElectricBlockValues getData() {
-        return data;
-    }
-
-
-    @Override
-    public float resistance() {
-        return 100;
-    }
-
-
-
-    @Override
-    public void sendStuff() {
-        sendData();
-    }
-
-
-    @Override
-    public long getPos() {
-        return getBlockPos().asLong();
-    }
-
-    @Override
-    public void remove() {
-        super.remove();
-        onRemoved();
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        tickElectricity();
-
-    }
-
-
 
     @Override
     protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-        super.read(compound,registries , clientPacket);
-        readElectricity(compound,clientPacket);
+        super.read(compound, registries, clientPacket);
+        energy.setEnergy(compound.getInt("ForgeEnergy"));
     }
 
     /// ////////////////
@@ -268,7 +263,7 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
             for (Map.Entry<Direction, PipeConnection> entry : interfaces.entrySet()) {
                 boolean pull = isPullingOnSide(isFront(entry.getKey()));
                 Couple<Float> pressure = entry.getValue().getPressure();
-                pressure.set(pull,getPowerUsage() == 0 ? 0 : Math.min(1500,data.getVoltage()*2f));
+                pressure.set(pull, getPressure());
                 pressure.set(!pull, 0f);
             }
         }

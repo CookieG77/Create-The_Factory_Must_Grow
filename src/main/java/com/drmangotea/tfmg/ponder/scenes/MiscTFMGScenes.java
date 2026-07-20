@@ -289,10 +289,6 @@ public class MiscTFMGScenes {
                 .text("Blocks that share a group split voltage between them(blocks with higher resistance get more of the split voltage)");
         scene.idle(90);
         //-------------------------Phase 3-------------------------//
-        Vec3 pos = util.vector().topOf(util.grid().at(2, 2, 4));
-        scene.overlay().showControls(pos, Pointing.DOWN, 20)
-                .rightClick()
-                .withItem(new ItemStack(TFMGItems.CONFIGURATION_WRENCH.get()));
         scene.overlay().showText(180)
                 .attachKeyFrame()
                 .text(

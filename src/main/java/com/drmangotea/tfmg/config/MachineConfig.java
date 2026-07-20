@@ -7,21 +7,16 @@ public class MachineConfig extends ConfigBase {
 
     public final ConfigInt fireExtinguisherClearRadius = i(1, 0, "fireExtinguisherClearRadius", Comments.fireExtinguisherClearRadius);
 
-    public final ConfigFloat electricMotorInternalResistance = f(30, 0, "electricMotorInternalResistance", Comments.electricMotorInternalResistance);
     public final ConfigInt cokeOvenMaxSize = i(5, 1, "cokeOvenMaxSize", Comments.cokeOvenMaxSize);
-    //public final ConfigFloat FEtoWattTickConversionRate = f(1, 0, "FEtoWattTickConversionRate", Comments.FEtoWattTickConversionRate);
-    public final ConfigInt forgeEnergyConversionVoltage = i(230,1,"forgeEnergyConversionVoltage", Comments.forgeEnergyConversionVoltage);
 
-    public final ConfigInt electrolysisMinimumCurrent = i(5, 1, "electrolysisMinimumCurrent", Comments.electrolysisMinimumCurrent);
+    public final ConfigInt electrolysisFEUsage = i(4048, 1, "electrolysisFEUsage", Comments.electrolysisFEUsage);
+    public final ConfigInt freezerFEUsage = i(4048, 1, "freezerFEUsage", Comments.freezerFEUsage);
     public final ConfigInt engineMaxLength = i(5, 1, "engineMaxLength", Comments.engineMaxLength);
     public final ConfigInt surfaceScannerScanDepth = i(-64, -512, "surfaceScannerScanDepth", Comments.surfaceScannerScanDepth);
-    public final ConfigInt polarizerItemChargingRate = i(1000, 1, "polarizerItemChargingRate", Comments.polarizerItemChargingRate);
 
-
-    public final ConfigGroup accumulator = group(1, "accumulator", "Accumulator");
-    public final ConfigInt accumulatorStorage = i(2500000, 1, "accumulatorStorage", Comments.accumulatorStorage);
-   // public final ConfigInt accumulatorVoltage = i(12, 1, "accumulatorVoltage", Comments.accumulatorVoltage);
-   // public final ConfigInt accumulatorChargingRate = i(100, 1, "accumulatorChargingRate", Comments.accumulatorChargingRate);
+    public final ConfigGroup electric_pump = group(1, "electric_pump", "Electric Pump");
+    public final ConfigInt electricPumpFEUsage = i(4048, 1, "electricPumpFEUsage", Comments.electricPumpFEUsage);
+    public final ConfigFloat electricPumpStrengthMultiplier = f(2.0f, 0, "electricPumpStrengthMultiplier", Comments.electricPumpStrengthMultiplier);
 
     public final ConfigGroup firebox = group(1, "firebox", "Firebox");
     public final ConfigBool fireboxExhaustRequirement = b(true, "fireboxExhaustRequirement", Comments.fireboxExhaustRequirement);
@@ -31,7 +26,6 @@ public class MachineConfig extends ConfigBase {
     public final ConfigFloat engineLoudness = f(1,0, "engineLoudness", Comments.engineLoudness);
     public final ConfigFloat engineFuelConsumption = f(100,0, "engineFuelConsumption", Comments.engineFuelConsumption);
     public final ConfigFloat enginePower = f(100,0, "enginePower", Comments.enginePower);
-    public final ConfigFloat engineElectricPower = f(100,0, "engineElectricPower", Comments.engineElectricPower);
 
 
     public final ConfigGroup generators = group(1, "generators", "Generators");
@@ -61,23 +55,17 @@ public class MachineConfig extends ConfigBase {
         static String blastFurnaceHeight = "Changes the maximum height of the blast furnace.";
         static String blastFurnaceHeightSpeedModifier = "Sets the maximum time that can be saved by increasing blast furnace height.";
         static String blastFurnaceFuelConsumption = "Determines how many ticks does it take to consume one fuel.";
-        static String electricMotorInternalResistance = "Sets the internal resistance of the electric motor.";
         static String cokeOvenMaxSize = "Determines the maximum size of coke ovens.";
-        static String accumulatorStorage = "Determines the storage space of accumulators.";
-        static String accumulatorVoltage = "Determines the voltage accumulators output.";
-        static String accumulatorMaxAmpOutput = "Sets the maximum amperage an accumulator can provide.";
-        static String accumulatorChargingRate = "Sets the maximum charging rate of accumulators.";
         static String fireboxExhaustRequirement = "If set to true,fireboxes will require exhaust management.";
         static String fireboxFuelConsumption = "Determines the amount of fuel a firebox needs to run for 3 seconds.";
-        static String electrolysisMinimumCurrent = "The minimum electric current that will make electrolyzers operational.";
+        static String electrolysisFEUsage = "The Forge Energy per tick required to make electrode holders operational (at full work speed).";
+        static String freezerFEUsage = "The Forge Energy per tick required to make freezers operational.";
+        static String electricPumpFEUsage = "The Forge Energy per tick the electric pump needs for full strength.";
+        static String electricPumpStrengthMultiplier = "Strength of the electric pump relative to Create's mechanical pump (range and pressure).";
         static String engineMaxLength = "The maximum length of engines.";
         static String engineFuelConsumption = "Modifier of engine fuel consumption in %.";
         static String enginePower = "Modifier of engine stress capacity in %.";
-        static String engineElectricPower = "Modifier of engine power generation in %.";
         static String surfaceScannerScanDepth = "Y level surface scanner scan at.";
-        static String FEtoWattTickConversionRate = "How much Forge Energy is in one watt-tick.";
-        static String polarizerItemChargingRate = "How much FE can polarizer charge per tick.";
         static String engineLoudness = "Changes the volume of engines.";
-        static String forgeEnergyConversionVoltage = "What voltage is created when FE is converted.";
     }
 }

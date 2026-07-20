@@ -16,32 +16,6 @@ public class TFMGMechanicalCraftingRecipeGen extends MechanicalCraftingRecipeGen
 
     GeneratedRecipe
 
-
-    ROTOR = create(TFMGBlocks.ROTOR::get)
-            .recipe(b -> b
-                    .key('C', TFMGItems.ELECTROMAGNETIC_COIL)
-                    .key('A', aluminumIngot())
-                    .key('S', steelBlock())
-                    .patternLine(" CCC ")
-                    .patternLine("CAAAC")
-                    .patternLine("CASAC")
-                    .patternLine("CAAAC")
-                    .patternLine(" CCC ")
-                    .disallowMirrored()),
-
-    STATOR = create(TFMGBlocks.STATOR::get).returns(3)
-            .recipe(b -> b
-                    .key('C', TFMGItems.ELECTROMAGNETIC_COIL)
-                    .key('A', aluminumSheet())
-                    .key('W', copperWire())
-                    .key('M', magnet())
-                    .key('S', steelBlock())
-                    .patternLine("CM  ")
-                    .patternLine("ACM ")
-                    .patternLine("ASCM")
-                    .patternLine("WAAC")
-                    .disallowMirrored()),
-
     SIMPLE_LARGE_ENGINE = create(TFMGBlocks.SIMPLE_LARGE_ENGINE::get)
             .recipe(b -> b
                     .key('C', castIronIngot())

@@ -56,8 +56,6 @@ public class TFMGRecipeProvider extends RecipeProvider {
     public static void registerAllProcessing(DataGenerator gen, PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         GENERATORS.add(new TFMGCokingRecipeGen(output,registries));
         GENERATORS.add(new TFMGDistillationRecipeGen(output,registries));
-        GENERATORS.add(new TFMGWindingRecipeGen(output,registries));
-        GENERATORS.add(new TFMGPolarizingRecipeGen(output,registries));
         GENERATORS.add(new TFMGHotBlastRecipeGen(output,registries));
         GENERATORS.add(new TFMGCastingRecipeGen(output,registries));
         GENERATORS.add(new TFMGIndustrialBlastingRecipeGen(output,registries));
@@ -276,11 +274,6 @@ public class TFMGRecipeProvider extends RecipeProvider {
         public static ItemLike aluminumCasing() {
             return TFMGBlocks.ALUMINUM_CASING.get();
         }
-        public static ItemLike lightBulb() {
-            return TFMGBlocks.LIGHT_BULB.get();
-        }
-
-
         public static ItemLike heavyPlate() {
             return TFMGItems.HEAVY_PLATE.get();
         }
@@ -364,9 +357,6 @@ public class TFMGRecipeProvider extends RecipeProvider {
         }
         public static ItemLike magneticIngot() {
             return TFMGItems.MAGNETIC_ALLOY_INGOT.get();
-        }
-        public static ItemLike magnet() {
-            return TFMGItems.MAGNET.get();
         }
         //
         public static TagKey<Item> redstone() {
@@ -526,25 +516,6 @@ public class TFMGRecipeProvider extends RecipeProvider {
 
         public static TagKey<Item> zincNugget() {
             return CommonMetal.ZINC.nuggets;
-        }
-
-        public static ItemStack resistor10Ohms(){
-            ItemStack stack = TFMGBlocks.RESISTOR.asStack();
-
-            stack.set(TFMGDataComponents.RESISTANCE,10);
-
-            return stack;
-        }
-
-        public static ItemStack coil100Turns(){
-            ItemStack stack = TFMGItems.ELECTROMAGNETIC_COIL.asStack();
-            stack.set(TFMGDataComponents.COIL_TURNS,100);
-            return stack;
-        }
-        public static ItemStack largeCoil100Turns(){
-            ItemStack stack = TFMGBlocks.LARGE_COIL.asStack();
-            stack.set(TFMGDataComponents.COIL_TURNS,100);
-            return stack;
         }
 
         //public static ItemStack turbineBlade(){

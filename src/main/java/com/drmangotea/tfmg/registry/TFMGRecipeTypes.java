@@ -32,10 +32,8 @@ public enum TFMGRecipeTypes implements IRecipeTypeInfo, StringRepresentable {
     INDUSTRIAL_BLASTING(IndustrialBlastingRecipe::new),
     COKING(CokingRecipe::new),
     DISTILLATION(DistillationRecipe::new),
-    WINDING(WindingRecipe::new),
     HOT_BLAST(HotBlastRecipe::new),
     VAT_MACHINE_RECIPE(VatMachineRecipe::new),
-    POLARIZING(PolarizingRecipe::new),
 
     ;
 

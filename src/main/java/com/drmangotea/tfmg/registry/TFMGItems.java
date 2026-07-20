@@ -5,12 +5,7 @@ import com.drmangotea.tfmg.base.TFMGCreativeTabs;
 import com.drmangotea.tfmg.base.TFMGRegistrate;
 import com.drmangotea.tfmg.base.TFMGTiers;
 import com.drmangotea.tfmg.content.decoration.kinetics.gearbox.SteelVerticalGearboxItem;
-import com.drmangotea.tfmg.content.electricity.configuration_wrench.ElectriciansWrenchItem;
 import com.drmangotea.tfmg.base.debug.DebugCinderBlockItem;
-import com.drmangotea.tfmg.content.electricity.measurement.MultimeterItem;
-import com.drmangotea.tfmg.content.electricity.utilities.polarizer.MagnetItem;
-import com.drmangotea.tfmg.content.electricity.utilities.resistor.ResistorItem;
-import com.drmangotea.tfmg.content.electricity.network.transformer.small.ElectromagneticCoilItem;
 
 import com.drmangotea.tfmg.content.engines.CylinderItem;
 import com.drmangotea.tfmg.content.engines.FluidContainingItem;
@@ -27,7 +22,6 @@ import com.drmangotea.tfmg.content.items.weapons.flamethrover.FlamethrowerItem;
 import com.drmangotea.tfmg.content.items.weapons.lithium_blade.LitLithiumBladeItem;
 import com.drmangotea.tfmg.content.items.weapons.lithium_blade.LithiumBladeItem;
 import com.drmangotea.tfmg.content.items.weapons.quad_potato_cannon.QuadPotatoCannonItem;
-import com.drmangotea.tfmg.content.machinery.misc.winding_machine.SpoolItem;
 import com.drmangotea.tfmg.content.machinery.oil_processing.OilHammerItem;
 import com.drmangotea.tfmg.registry.TFMGTags.TFMGItemTags;
 import com.simibubi.create.AllTags;
@@ -180,31 +174,11 @@ public class TFMGItems {
     //        TRANSMISSION = REGISTRATE.item("transmission", TransmissionItem::new)
     //        .properties(p -> p.stacksTo(1))
     //        .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/transmission_model"))).register();
-    public static final ItemEntry<MagnetItem>
-            MAGNET = REGISTRATE.item("magnet", MagnetItem::new).register();
-
-    public static final ItemEntry<ResistorItem>
-            UNFINISHED_RESISTOR = REGISTRATE.item("unfinished_resistor", ResistorItem::new).register();
    //public static final ItemEntry<CylinderItem>
    //        DIESEL_ENGINE_CYLINDER = REGISTRATE.item("diesel_engine_cylinder", CylinderItem::new).register(),
    //        SIMPLE_ENGINE_CYLINDER = REGISTRATE.item("simple_engine_cylinder", CylinderItem::new).register(),
    //        ENGINE_CYLINDER = REGISTRATE.item("engine_cylinder", CylinderItem::new).register(),
    //        TURBINE_BLADE = REGISTRATE.item("turbine_blade", CylinderItem::new).register();
-    public static final ItemEntry<SpoolItem>
-            EMPTY_SPOOL = spoolItem("empty", 0x000000, TFMG.asResource("empty"))
-            .recipe((c, p) -> p.stonecutting(DataIngredient.items(TFMGBlocks.HARDENED_PLANKS.asItem()), RecipeCategory.BUILDING_BLOCKS, c, 1))
-            .register(),
-            COPPER_SPOOL = spoolItem("copper", 0xD8735A, TFMG.asResource("copper"))
-                    .register(),
-            ALUMINUM_SPOOL = spoolItem("aluminum", 0xEDEFEF, TFMG.asResource("aluminum"))
-                    .register(),
-            CONSTANTAN_SPOOL = spoolItem("constantan", 0xCFC2A8, TFMG.asResource("constantan"))
-                    .register();
-
-    public static final ItemEntry<ElectromagneticCoilItem> ELECTROMAGNETIC_COIL =
-            REGISTRATE.item("electromagnetic_coil", ElectromagneticCoilItem::new)
-                    .properties(p -> p.stacksTo(1))
-                    .register();
     //public static final ItemEntry<FuseItem> FUSE = REGISTRATE.item("fuse", FuseItem::new)
     //        .properties(p -> p.stacksTo(1))
     //        .register();
@@ -274,11 +248,6 @@ public class TFMGItems {
                     .properties(p -> p.stacksTo(1))
                     .register();
 
-    public static final Map<String, ItemEntry<MultimeterItem>> MULTIMETERS = multimeters();
-
-    public static final ItemEntry<MultimeterItem> MULTIMETER = REGISTRATE.item("multimeter", MultimeterItem::new)
-            .register();
-
     public static final ItemEntry<SequencedAssemblyItem>
             UNFINISHED_POTENTIOMETER = sequencedIngredient("unfinished_potentiometer", "block/potentiometer/unfinished"),
             UNFINISHED_ELECTRIC_MOTOR = sequencedIngredient("unfinished_electric_motor", "block/electric_motor/unfinished"),
@@ -324,11 +293,6 @@ public class TFMGItems {
     //        COOLING_FLUID_BOTTLE = REGISTRATE.item("cooling_fluid_bottle", p -> new FluidContainingItem(p, TFMGFluids.COOLING_FLUID))
     //                .properties(p -> p.stacksTo(1))
     //                .register();
-    public static final ItemEntry<ElectriciansWrenchItem>
-            CONFIGURATION_WRENCH = REGISTRATE.item("electricians_wrench", ElectriciansWrenchItem::new)
-            .lang("Configuration Wrench")
-            .register();
-
     public static final ItemEntry<ThermiteGrenadeItem>
             THERMITE_GRENADE = thermiteGrenade("thermite_grenade", BASE);
     public static final ItemEntry<ThermiteGrenadeItem>
@@ -454,26 +418,6 @@ public class TFMGItems {
         return REGISTRATE.item(name, SequencedAssemblyItem::new)
                 .register();
     }
-
-    public static Map<String, ItemEntry<MultimeterItem>> multimeters() {
-        Map<String, ItemEntry<MultimeterItem>> map = new HashMap<>();
-
-        for (String color : COLORS) {
-
-            map.put(color, REGISTRATE.item(color + "_multimeter", MultimeterItem::new)
-                    .register());
-        }
-
-        return map;
-    }
-
-    public static ItemBuilder<SpoolItem, CreateRegistrate> spoolItem(String name, int barColor, ResourceLocation type) {
-        return REGISTRATE.item(name + "_spool", p -> new SpoolItem(p, barColor, type))
-                .tag(TFMGItemTags.SPOOLS.tag)
-                .properties(p -> p.stacksTo(1));
-
-    }
-
 
     private static ItemEntry<ThermiteGrenadeItem> thermiteGrenade(String name, ThermiteGrenade.ChemicalColor color) {
         return REGISTRATE.item(name, p -> new ThermiteGrenadeItem(p, color))

@@ -11,8 +11,6 @@ import com.drmangotea.tfmg.content.decoration.doors.TFMGSlidingDoorBlock;
 import com.drmangotea.tfmg.content.decoration.kinetics.encased.TFMGEncasedCogwheelBlock;
 import com.drmangotea.tfmg.content.decoration.kinetics.encased.TFMGEncasedShaftBlock;
 import com.drmangotea.tfmg.content.decoration.kinetics.flywheels.TFMGFlywheelBlock;
-import com.drmangotea.tfmg.content.electricity.connection.copycat_cable.CopycatCableBlock;
-import com.drmangotea.tfmg.content.electricity.lights.neon_tube.NeonTubeBlock;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTags;
@@ -81,43 +79,6 @@ public class TFMGBuilderTransformers {
                 .model((c, p) -> p.blockSprite(c, p.modLoc("item/" + type + "_door")))
                 .build();
     }
-
-    public static void generateNeonTubeBlockState(DataGenContext<Block, NeonTubeBlock> c, RegistrateBlockstateProvider p) {
-        MultiPartBlockStateBuilder builder = p.getMultipartBuilder(c.get());
-
-
-        builder.part()
-                .modelFile(AssetLookup.partialBaseModel(c, p, "center"))
-                .addModel()
-                .end();
-
-        builder.part().modelFile(AssetLookup.partialBaseModel(c, p, "north"))
-                .addModel()
-                .condition(PipeBlock.NORTH, true)
-                .end();
-        builder.part().modelFile(AssetLookup.partialBaseModel(c, p, "south"))
-                .addModel()
-                .condition(PipeBlock.SOUTH, true)
-                .end();
-        builder.part().modelFile(AssetLookup.partialBaseModel(c, p, "west"))
-                .addModel()
-                .condition(PipeBlock.WEST, true)
-                .end();
-        builder.part().modelFile(AssetLookup.partialBaseModel(c, p, "east"))
-                .addModel()
-                .condition(PipeBlock.EAST, true)
-                .end();
-        builder.part().modelFile(AssetLookup.partialBaseModel(c, p, "top"))
-                .addModel()
-                .condition(PipeBlock.UP, true)
-                .end();
-        builder.part().modelFile(AssetLookup.partialBaseModel(c, p, "bottom"))
-                .addModel()
-                .condition(PipeBlock.DOWN, true)
-                .end();
-
-    }
-
 
     public static <B extends TFMGEncasedShaftBlock, P> NonNullUnaryOperator<BlockBuilder<B, P>> encasedShaft(String casing,
                                                                                                              Supplier<CTSpriteShiftEntry> casingShift) {
@@ -188,21 +149,6 @@ public class TFMGBuilderTransformers {
                 .loot((p, lb) -> p.dropOther(lb, drop.get()));
     }
 
-    public static <B extends CopycatCableBlock, P> NonNullUnaryOperator<BlockBuilder<B, P>> copycatCable() {
-        return b -> b.initialProperties(SharedProperties::softMetal)
-                .blockstate((c, p) -> p.simpleBlock(c.get(), p.models()
-                        .getExistingFile(p.mcLoc("air"))))
-                .initialProperties(SharedProperties::softMetal)
-                .properties(BlockBehaviour.Properties::noOcclusion)
-                .addLayer(() -> RenderType::solid)
-                .addLayer(() -> RenderType::cutout)
-                .addLayer(() -> RenderType::cutoutMipped)
-                // .addLayer(() -> RenderType::translucent)
-                .color(() -> CopycatCableBlock::wrappedColor)
-                .transform(TagGen.axeOrPickaxe());
-    }
-
-    /// ////////////
     public static BlockEntry<TFMGFlywheelBlock> flywheel(String name, NonNullFunction<BlockBehaviour.Properties, TFMGFlywheelBlock> block) {
         return REGISTRATE.block(name + "_flywheel", block)
                 .initialProperties(SharedProperties::softMetal)

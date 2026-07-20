@@ -114,22 +114,7 @@ public class TFMGJei implements IModPlugin {
                         .catalyst(TFMGBlocks.BLAST_STOVE::get)
                         .itemIcon(TFMGBlocks.BLAST_STOVE.get())
                         .emptyBackground(177, 110)
-                        .build("hot_blast", HotBlastCategory::new),
-
-                polarizing = builder(PolarizingRecipe.class)
-                        .addTypedRecipes(TFMGRecipeTypes.POLARIZING)
-
-                        .catalyst(TFMGBlocks.POLARIZER::get)
-                        .itemIcon(TFMGBlocks.POLARIZER.get())
-                        .emptyBackground(177, 53)
-                        .build("polarizing", PolarizingCategory::new),
-
-                winding = builder(WindingRecipe.class)
-                        .addTypedRecipes(TFMGRecipeTypes.WINDING)
-                        .catalyst(TFMGBlocks.WINDING_MACHINE::get)
-                        .itemIcon(TFMGBlocks.WINDING_MACHINE.get())
-                        .emptyBackground(177, 53)
-                        .build("winding", WindingCategory::new);
+                        .build("hot_blast", HotBlastCategory::new);
 
     }
 

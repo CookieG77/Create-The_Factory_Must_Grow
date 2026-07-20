@@ -4,8 +4,6 @@ import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGUtils;
 import com.drmangotea.tfmg.content.decoration.tanks.steel.SteelTankBlock;
 import com.drmangotea.tfmg.content.decoration.tanks.steel.SteelTankBlockEntity;
-import com.drmangotea.tfmg.content.electricity.base.IElectric;
-import com.drmangotea.tfmg.content.electricity.generators.large_generator.StatorBlockEntity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
@@ -31,23 +29,6 @@ public class DebugCinderBlockItem extends Item {
 
         BlockPos pos = context.getClickedPos();
         Level level = context.getLevel();
-
-        if (level.getBlockEntity(pos) instanceof IElectric be) {
-
-        if(context.getPlayer().isCrouching()){
-              be.recalculateNetworkResistance();
-        }else {
-          //  be.getOrCreateElectricNetwork().add(be);
-            be.updateNextTick();
-
-            TFMG.LOGGER.debug(""+ BlockPos.of(be.getData().electricalNetworkId));
-            TFMG.LOGGER.debug(""+be.getOrCreateElectricNetwork().members.size());
-
-        }
-
-        }
-
-
 
         if (level.getBlockEntity(pos) instanceof SteelTankBlockEntity be) {
             if (!context.getPlayer().isCrouching()) {

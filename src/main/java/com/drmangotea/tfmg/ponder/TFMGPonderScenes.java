@@ -35,10 +35,6 @@ public class TFMGPonderScenes {
                 .addStoryBoard("pumpjack", MiscTFMGScenes::pumpjack, TFMGPonderTags.OIL_PROCESSING);
        // HELPER.forComponents(TFMGBlocks.REGULAR_ENGINE, TFMGBlocks.TURBINE_ENGINE, TFMGBlocks.RADIAL_ENGINE)
        //         .addStoryBoard("engines", MiscTFMGScenes::engines, TFMGPonderTags.ENGINES);
-        HELPER.forComponents(TFMGBlocks.GENERATOR, TFMGBlocks.ROTOR, TFMGBlocks.STATOR, TFMGBlocks.ELECTRIC_MOTOR)
-                .addStoryBoard("electricity", MiscTFMGScenes::electricity, TFMGPonderTags.ELECTRIC_MACHINERY)
-                .addStoryBoard("electricity_two", MiscTFMGScenes::electricy_two, TFMGPonderTags.ELECTRIC_MACHINERY);
-
         // Add our fluid manipulators to Create's ponder scenes
         HELPER.forComponents(
                 TFMGPipes.PIPES.get(TFMGPipes.PipeMaterial.BRASS).getPipe(),

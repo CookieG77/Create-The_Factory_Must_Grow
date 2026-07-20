@@ -2,8 +2,6 @@ package com.drmangotea.tfmg.base;
 
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.fluid.GasFluidType;
-import com.drmangotea.tfmg.content.electricity.connection.cable_type.CableType;
-import com.drmangotea.tfmg.content.electricity.connection.cable_type.CableTypeBuilder;
 import com.drmangotea.tfmg.content.machinery.vat.electrode_holder.electrode.Electrode;
 import com.drmangotea.tfmg.content.machinery.vat.electrode_holder.electrode.ElectrodeBuilder;
 import com.simibubi.create.content.fluids.VirtualFluid;
@@ -65,22 +63,6 @@ public class TFMGRegistrate extends CreateRegistrate {
     //}
     public static Item getBucket(String name) {
         return TFMG.REGISTRATE.get(name+"_bucket", Registries.ITEM).get();
-    }
-
-    public <T extends CableType> CableTypeBuilder<T, TFMGRegistrate> cableType(NonNullFunction<CableType.Properties, T> factory) {
-        return cableType((TFMGRegistrate) self(), factory);
-    }
-
-    public <T extends CableType> CableTypeBuilder<T, TFMGRegistrate> cableType(String name, NonNullFunction<CableType.Properties, T> factory) {
-        return cableType((TFMGRegistrate) self(), name, factory);
-    }
-
-    public <T extends CableType, P> CableTypeBuilder<T, P> cableType(P parent, NonNullFunction<CableType.Properties, T> factory) {
-        return cableType(parent, currentName(), factory);
-    }
-
-    public <T extends CableType, P> CableTypeBuilder<T, P> cableType(P parent, String name, NonNullFunction<CableType.Properties, T> factory) {
-        return entry(name, callback -> CableTypeBuilder.create(this, parent, name, callback, factory));
     }
 
     public <T extends Electrode> ElectrodeBuilder<T, TFMGRegistrate> electrode(NonNullFunction<Electrode.Properties, T> factory) {

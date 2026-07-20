@@ -1,7 +1,6 @@
 package com.drmangotea.tfmg;
 
 import com.drmangotea.tfmg.base.*;
-import com.drmangotea.tfmg.content.electricity.base.ElectricNetworkManager;
 
 import com.drmangotea.tfmg.content.engines.fuels.BaseFuelTypes;
 import com.drmangotea.tfmg.content.items.weapons.explosives.thermite_grenades.fire.TFMGColoredFires;
@@ -35,7 +34,6 @@ import org.slf4j.Logger;
 public class TFMG {
 
     public static final String MOD_ID = "tfmg";
-    public static final ElectricNetworkManager NETWORK_MANAGER = new ElectricNetworkManager();
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public static final TestSavedDataManager DEPOSITS = new TestSavedDataManager();
@@ -56,8 +54,6 @@ public class TFMG {
 
         TFMGSoundEvents.prepare();
         TFMGElectrodes.init();
-        TFMGCableTypes.init();
-        TFMGDisplaySources.init();
         TFMGCreativeTabs.register(modEventBus);
         TFMGBlocks.init();
         TFMGPipes.init();

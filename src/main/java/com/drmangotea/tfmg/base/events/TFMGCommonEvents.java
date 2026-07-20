@@ -5,10 +5,8 @@ import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.TFMGRegistries;
 import com.drmangotea.tfmg.content.decoration.tanks.TFMGFluidTankBlockEntity;
 import com.drmangotea.tfmg.content.decoration.tanks.steel.SteelTankBlockEntity;
-import com.drmangotea.tfmg.content.electricity.base.IElectric;
-import com.drmangotea.tfmg.content.electricity.storage.AccumulatorBlockEntity;
-import com.drmangotea.tfmg.content.electricity.utilities.converter.ConverterBlockEntity;
-import com.drmangotea.tfmg.content.electricity.utilities.polarizer.PolarizerBlockEntity;
+import com.drmangotea.tfmg.content.electricity.network.large_switch.LargeSwitchBlockEntity;
+import com.drmangotea.tfmg.content.electricity.utilities.electric_pump.ElectricPumpBlockEntity;
 import com.drmangotea.tfmg.content.engines.fuels.EngineFuelTypeManager;
 import com.drmangotea.tfmg.content.engines.types.AbstractSmallEngineBlockEntity;
 import com.drmangotea.tfmg.content.engines.types.large_engine.LargeEngineBlockEntity;
@@ -25,11 +23,12 @@ import com.drmangotea.tfmg.content.machinery.misc.firebox.FireboxBlockEntity;
 import com.drmangotea.tfmg.content.machinery.misc.flarestack.FlarestackBlockEntity;
 import com.drmangotea.tfmg.content.machinery.misc.gas_lamp.GasLampBlockEntity;
 import com.drmangotea.tfmg.content.machinery.misc.smokestack.SmokestackBlockEntity;
-import com.drmangotea.tfmg.content.machinery.misc.winding_machine.WindingMachineBlockEntity;
 import com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.controller.DistillationControllerBlockEntity;
 import com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.output.DistillationOutputBlockEntity;
 import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.base.PumpjackBaseBlockEntity;
 import com.drmangotea.tfmg.content.machinery.vat.base.VatBlockEntity;
+import com.drmangotea.tfmg.content.machinery.vat.electrode_holder.ElectrodeHolderBlockEntity;
+import com.drmangotea.tfmg.content.machinery.vat.freezer.FreezerBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGDataComponents;
 import com.drmangotea.tfmg.registry.TFMGItems;
 import net.minecraft.world.InteractionHand;
@@ -50,17 +49,8 @@ public class TFMGCommonEvents {
 
 
     @SubscribeEvent
-    public static void onUnloadWorld(LevelEvent.Unload event) {
-        LevelAccessor world = event.getLevel();
-        TFMG.NETWORK_MANAGER.onUnloadWorld(world);
-
-
-    }
-
-    @SubscribeEvent
     public static void onLoadWorld(LevelEvent.Load event) {
         LevelAccessor world = event.getLevel();
-        TFMG.NETWORK_MANAGER.onLoadWorld(world);
         TFMG.DEPOSITS.levelLoaded(world);
     }
 
@@ -79,13 +69,14 @@ public class TFMGCommonEvents {
             DistillationOutputBlockEntity.registerCapabilities(event);
             ConcreteHoseBlockEntity.registerCapabilities(event);
             PumpjackBaseBlockEntity.registerCapabilities(event);
-            PolarizerBlockEntity.registerCapabilities(event);
             LargeEngineBlockEntity.registerCapabilities(event);
-           // ConverterBlockEntity.registerCapabilities(event);
             CastingBasinBlockEntity.registerCapabilities(event);
             FireboxBlockEntity.registerCapabilities(event);
             DistillationControllerBlockEntity.registerCapabilities(event);
-            AccumulatorBlockEntity.registerCapabilities(event);
+            LargeSwitchBlockEntity.registerCapabilities(event);
+            ElectricPumpBlockEntity.registerCapabilities(event);
+            ElectrodeHolderBlockEntity.registerCapabilities(event);
+            FreezerBlockEntity.registerCapabilities(event);
             SteelTankBlockEntity.registerCapabilities(event);
             TFMGFluidTankBlockEntity.registerCapabilities(event);
             VatBlockEntity.registerCapabilities(event);
@@ -98,12 +89,10 @@ public class TFMGCommonEvents {
             BlastFurnaceOutputBlockEntity.registerCapabilities(event);
             CokeOvenBlockEntity.registerCapabilities(event);
             AirIntakeBlockEntity.registerCapabilities(event);
-            WindingMachineBlockEntity.registerCapabilities(event);
         }
 
         @SubscribeEvent
         public static void newRegistry(NewRegistryEvent event) {
-            event.register(TFMGRegistries.CABLE_TYPE_REGISTRY);
             event.register(TFMGRegistries.ELECTRODE_REGISTRY);
         }
     }
