@@ -3,6 +3,7 @@ package com.drmangotea.tfmg.datagen.recipes.values.tfmg;
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.datagen.recipes.builder.DistillationRecipeGen;
 import com.drmangotea.tfmg.registry.TFMGRecipeTypes;
+import com.drmangotea.tfmg.registry.TFMGTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
@@ -16,7 +17,7 @@ public class TFMGDistillationRecipeGen extends DistillationRecipeGen {
 	GeneratedRecipe
 
 	CRUDE_OIL = create(TFMG.asResource("crude_oil"), b ->b
-			.require(SizedFluidIngredient.of(crudeOil(),340))
+			.require(SizedFluidIngredient.of(TFMGTags.TFMGFluidTags.CRUDE_OIL.tag,340))
 			.output(heavyOil(), 120)
 			.output(diesel(), 60)
 			.output(kerosene(), 30)
@@ -24,14 +25,14 @@ public class TFMGDistillationRecipeGen extends DistillationRecipeGen {
 			.output(gasoline(), 60)
 			.output(lpg(), 60)),
 	CRUDE_OIL_NO_NAPHTHA = create(TFMG.asResource("crude_oil_no_naphtha"), b ->b
-			.require(SizedFluidIngredient.of(crudeOil(),330))
+			.require(SizedFluidIngredient.of(TFMGTags.TFMGFluidTags.CRUDE_OIL.tag,330))
 			.output(heavyOil(), 120)
 			.output(diesel(), 60)
 			.output(kerosene(), 30)
 			.output(gasoline(), 60)
 			.output(lpg(), 60)),
 	CRUDE_OIL_LIGHT_DISTILLATION = create(TFMG.asResource("crude_oil_light_distillation"), b ->b
-			.require(SizedFluidIngredient.of(crudeOil(),200))
+			.require(SizedFluidIngredient.of(TFMGTags.TFMGFluidTags.CRUDE_OIL.tag,200))
 			.output(heavyOil(), 150)
 			.output(diesel(), 45)
 			.output(gasoline(), 5)),
