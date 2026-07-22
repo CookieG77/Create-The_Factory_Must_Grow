@@ -44,6 +44,41 @@ public class TFMGDataComponents {
 			"timer",
 			builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT)
 	);
+	/**
+	 * Ticks remaining until a renamed (disguised) Pipe Bomb detonates. Absent = fuse not started
+	 * yet (still safely nested inside a Package, or never packaged at all). Set automatically the
+	 * moment a {@link #PIPE_BOMB_PACKAGED} pipe bomb is observed live outside of Package storage.
+	 */
+	public static final DataComponentType<Integer> PIPE_BOMB_TRAP_TIMER = register(
+			"pipe_bomb_trap_timer",
+			builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT)
+	);
+	/**
+	 * The fuse length (in ticks) randomly rolled for this specific bomb when it armed - stored
+	 * so progress (for the countdown bar/text color) can be computed relative to its own fuse
+	 * rather than a single fixed duration.
+	 */
+	public static final DataComponentType<Integer> PIPE_BOMB_TRAP_TOTAL_TICKS = register(
+			"pipe_bomb_trap_total_ticks",
+			builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT)
+	);
+	/**
+	 * Set on the copy sealed into a Package when a renamed pipe bomb is wrapped with cardboard.
+	 * Marks it as "safe only while inside a Package" - the instant it's live again (however it
+	 * got out - opened normally, the package was destroyed, anything), its fuse starts.
+	 */
+	public static final DataComponentType<Boolean> PIPE_BOMB_PACKAGED = register(
+			"pipe_bomb_packaged",
+			builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL)
+	);
+	/**
+	 * Set by combining a renamed pipe bomb with a slimeball. Once its fuse is running, the
+	 * holder can no longer toss/drop it.
+	 */
+	public static final DataComponentType<Boolean> PIPE_BOMB_STICKY = register(
+			"pipe_bomb_sticky",
+			builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL)
+	);
 	public static final DataComponentType<FlamethrowerFuel> FLAMETHROWER = register(
 			"flamethrower",
 			builder -> builder.persistent(FlamethrowerFuel.CODEC).networkSynchronized(FlamethrowerFuel.STREAM_CODEC)

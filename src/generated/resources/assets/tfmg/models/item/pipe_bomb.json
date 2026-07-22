@@ -1,6 +1,11 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "tfmg:item/pipe_bomb"
-  }
+  "parent": "tfmg:item/pipe_bomb_3d",
+  "overrides": [
+    {
+      "model": "tfmg:item/pipe_bomb_3d_sticky",
+      "predicate": {
+        "minecraft:custom_model_data": 1.0
+      }
+    }
+  ]
 }

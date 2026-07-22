@@ -33,10 +33,6 @@ public class TFMGTags {
         BLAST_FURNACE_WALL,
         INDUSTRIAL_PIPE,
         ORES_LITHIUM(COMMON, "ores/lithium"),
-        PUMPJACK_CONNECTOR,
-        PUMPJACK_HEAD,
-        PUMPJACK_PART,
-        PUMPJACK_SMALL_PART,
         RAW_LITHIUM(COMMON, "raw_materials/lithium"),
         REINFORCED_BLAST_FURNACE_SUPPORT,
         REINFORCED_BLAST_FURNACE_WALL,
@@ -45,7 +41,6 @@ public class TFMGTags {
         STORAGE_BLOCKS_LITHIUM(COMMON, "storage_blocks/lithium"),
         STORAGE_BLOCKS_PLASTIC(COMMON, "storage_blocks/plastic"),
         STORAGE_BLOCKS_RAW_LITHIUM(COMMON, "storage_blocks/raw_lithium"),
-        SURFACE_SCANNER_FINDABLE,
         ;
 
         public final TagKey<Block> tag;

@@ -12,7 +12,6 @@ public class MachineConfig extends ConfigBase {
     public final ConfigInt electrolysisFEUsage = i(4048, 1, "electrolysisFEUsage", Comments.electrolysisFEUsage);
     public final ConfigInt freezerFEUsage = i(4048, 1, "freezerFEUsage", Comments.freezerFEUsage);
     public final ConfigInt engineMaxLength = i(5, 1, "engineMaxLength", Comments.engineMaxLength);
-    public final ConfigInt surfaceScannerScanDepth = i(-64, -512, "surfaceScannerScanDepth", Comments.surfaceScannerScanDepth);
 
     public final ConfigGroup electric_pump = group(1, "electric_pump", "Electric Pump");
     public final ConfigInt electricPumpFEUsage = i(4048, 1, "electricPumpFEUsage", Comments.electricPumpFEUsage);
@@ -65,7 +64,6 @@ public class MachineConfig extends ConfigBase {
         static String engineMaxLength = "The maximum length of engines.";
         static String engineFuelConsumption = "Modifier of engine fuel consumption in %.";
         static String enginePower = "Modifier of engine stress capacity in %.";
-        static String surfaceScannerScanDepth = "Y level surface scanner scan at.";
         static String engineLoudness = "Changes the volume of engines.";
     }
 }

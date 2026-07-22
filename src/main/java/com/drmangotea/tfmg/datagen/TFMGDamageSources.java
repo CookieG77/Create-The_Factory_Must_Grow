@@ -22,6 +22,10 @@ public class TFMGDamageSources {
 		return source(TFMGDamageTypes.BLAST_FURNACE, level);
 	}
 
+	public static DamageSource pipeBombTrap(Level level) {
+		return source(TFMGDamageTypes.PIPE_BOMB_TRAP, level);
+	}
+
 
 
 	private static DamageSource source(ResourceKey<DamageType> key, LevelReader level) {

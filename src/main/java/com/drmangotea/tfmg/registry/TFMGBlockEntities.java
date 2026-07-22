@@ -47,13 +47,6 @@ import com.drmangotea.tfmg.content.machinery.misc.smokestack.SmokestackBlockEnti
 import com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.controller.DistillationControllerBlockEntity;
 import com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.controller.DistillationControllerRenderer;
 import com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.output.DistillationOutputBlockEntity;
-import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.base.PumpjackBaseBlockEntity;
-import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.crank.PumpjackCrankBlockEntity;
-import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.crank.PumpjackCrankRenderer;
-import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.hammer.PumpjackBlockEntity;
-import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.hammer.PumpjackRenderer;
-import com.drmangotea.tfmg.content.machinery.oil_processing.surface_scanner.SurfaceScannerBlockEntity;
-import com.drmangotea.tfmg.content.machinery.oil_processing.surface_scanner.SurfaceScannerRenderer;
 import com.drmangotea.tfmg.content.machinery.vat.base.VatBlockEntity;
 import com.drmangotea.tfmg.content.machinery.vat.base.VatRenderer;
 import com.drmangotea.tfmg.content.machinery.vat.compressor.CompressorBlockEntity;
@@ -118,22 +111,6 @@ public class TFMGBlockEntities {
             .validBlocks(TFMGBlocks.CONCRETE_HOSE)
             .renderer(() -> ConcreteHoseRenderer::new)
             .register();
-    public static final BlockEntityEntry<PumpjackBlockEntity> PUMPJACK_HAMMER = REGISTRATE
-            .blockEntity("pumpjack_hammer", PumpjackBlockEntity::new)
-            .validBlocks(TFMGBlocks.PUMPJACK_HAMMER)
-            .renderer(() -> PumpjackRenderer::new)
-            .register();
-
-    public static final BlockEntityEntry<PumpjackCrankBlockEntity> PUMPJACK_CRANK = REGISTRATE
-            .blockEntity("pumpjack_crank", PumpjackCrankBlockEntity::new)
-            .validBlocks(TFMGBlocks.PUMPJACK_CRANK)
-            .renderer(() -> PumpjackCrankRenderer::new)
-            .register();
-
-    public static final BlockEntityEntry<PumpjackBaseBlockEntity> PUMPJACK_BASE = REGISTRATE
-            .blockEntity("pumpjack_base", PumpjackBaseBlockEntity::new)
-            .validBlocks(TFMGBlocks.PUMPJACK_BASE)
-            .register();
     //public static final BlockEntityEntry<ConverterBlockEntity> CONVERTER = REGISTRATE
     //        .blockEntity("converter", ConverterBlockEntity::new)
     //        .validBlocks(TFMGBlocks.CONVERTER)
@@ -144,11 +121,6 @@ public class TFMGBlockEntities {
             .renderer(() -> CastingBasinRenderer::new)
             .register();
 
-    public static final BlockEntityEntry<SurfaceScannerBlockEntity> SURFACE_SCANNER = REGISTRATE
-            .blockEntity("surface_scanner", SurfaceScannerBlockEntity::new)
-            .validBlocks(TFMGBlocks.SURFACE_SCANNER)
-            .renderer(() -> SurfaceScannerRenderer::new)
-            .register();
     public static final BlockEntityEntry<FireboxBlockEntity> FIREBOX = REGISTRATE
             .blockEntity("firebox", FireboxBlockEntity::new)
             .validBlocks(TFMGBlocks.FIREBOX)

@@ -17,8 +17,6 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 public class TFMGBiomeModifiers {
     public static final ResourceKey<BiomeModifier>
-            OIL_DEPOSIT = key("oil_deposit"),
-            OIL_WELL = key("oil_well"),
             LEAD_ORE = key("lead_ore"),
             NICKEL_ORE = key("nickel_ore"),
             LITHIUM_ORE = key("lithium_ore"),
@@ -35,11 +33,7 @@ public class TFMGBiomeModifiers {
         HolderSet<Biome> isNether = biomeLookup.getOrThrow(BiomeTags.IS_NETHER);
 
 
-        HolderSet<Biome> isDesert = biomeLookup.getOrThrow(BiomeTags.HAS_DESERT_PYRAMID);
         HolderGetter<PlacedFeature> featureLookup = ctx.lookup(Registries.PLACED_FEATURE);
-
-        Holder<PlacedFeature> oilDeposit = featureLookup.getOrThrow(TFMGPlacedFeatures.OIL_DEPOSIT);
-        Holder<PlacedFeature> oilWell = featureLookup.getOrThrow(TFMGPlacedFeatures.OIL_WELL);
 
         Holder<PlacedFeature> leadOre = featureLookup.getOrThrow(TFMGPlacedFeatures.LEAD_ORE);
         Holder<PlacedFeature> nickelOre = featureLookup.getOrThrow(TFMGPlacedFeatures.NICKEL_ORE);
@@ -47,10 +41,6 @@ public class TFMGBiomeModifiers {
         Holder<PlacedFeature> striatedOresOverworld = featureLookup.getOrThrow(TFMGPlacedFeatures.TFMG_STRIATED_ORES_OVERWORLD);
         Holder<PlacedFeature> striatedOresNether = featureLookup.getOrThrow(TFMGPlacedFeatures.TFMG_STRIATED_ORES_NETHER);
 
-
-        ctx.register(OIL_DEPOSIT,addOre(isOverworld,oilDeposit));
-
-        ctx.register(OIL_WELL,addOilWell(isDesert,oilWell));
 
         ctx.register(LEAD_ORE, addOre(isOverworld, leadOre));
         ctx.register(NICKEL_ORE, addOre(isOverworld, nickelOre));
@@ -61,11 +51,6 @@ public class TFMGBiomeModifiers {
 
     private static BiomeModifiers.AddFeaturesBiomeModifier addOre(HolderSet<Biome> biomes, Holder<PlacedFeature> feature) {
         return new BiomeModifiers.AddFeaturesBiomeModifier(biomes, HolderSet.direct(feature), GenerationStep.Decoration.UNDERGROUND_ORES);
-    }
-
-
-    private static BiomeModifiers.AddFeaturesBiomeModifier addOilWell(HolderSet<Biome> biomes, Holder<PlacedFeature> feature) {
-        return new BiomeModifiers.AddFeaturesBiomeModifier(biomes, HolderSet.direct(feature), GenerationStep.Decoration.FLUID_SPRINGS);
     }
 
 }

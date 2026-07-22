@@ -25,20 +25,23 @@ import com.drmangotea.tfmg.content.machinery.misc.gas_lamp.GasLampBlockEntity;
 import com.drmangotea.tfmg.content.machinery.misc.smokestack.SmokestackBlockEntity;
 import com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.controller.DistillationControllerBlockEntity;
 import com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.output.DistillationOutputBlockEntity;
-import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.base.PumpjackBaseBlockEntity;
 import com.drmangotea.tfmg.content.machinery.vat.base.VatBlockEntity;
 import com.drmangotea.tfmg.content.machinery.vat.electrode_holder.ElectrodeHolderBlockEntity;
 import com.drmangotea.tfmg.content.machinery.vat.freezer.FreezerBlockEntity;
+import com.drmangotea.tfmg.content.items.weapons.explosives.pipe_bomb.PipeBombItem;
 import com.drmangotea.tfmg.registry.TFMGDataComponents;
 import com.drmangotea.tfmg.registry.TFMGItems;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.entity.item.ItemTossEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.ExplosionEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 
@@ -49,17 +52,40 @@ public class TFMGCommonEvents {
 
 
     @SubscribeEvent
-    public static void onLoadWorld(LevelEvent.Load event) {
-        LevelAccessor world = event.getLevel();
-        TFMG.DEPOSITS.levelLoaded(world);
-    }
-
-
-
-    @SubscribeEvent
     public static void addReloadListeners(AddReloadListenerEvent event) {
         event.addListener(EngineFuelTypeManager.ReloadListener.INSTANCE);
     }
+
+    /**
+     * A triggered, slime-combined pipe bomb can't be tossed away - cancel the toss and hand it
+     * straight back to whoever was trying to get rid of it.
+     */
+    @SubscribeEvent
+    public static void onPipeBombToss(ItemTossEvent event) {
+        ItemStack stack = event.getEntity().getItem();
+        if (!stack.is(TFMGItems.PIPE_BOMB.get()))
+            return;
+        if (!stack.has(TFMGDataComponents.PIPE_BOMB_STICKY))
+            return;
+        if (!stack.has(TFMGDataComponents.PIPE_BOMB_TRAP_TIMER))
+            return;
+
+        event.setCanceled(true);
+        Player player = event.getPlayer();
+        if (!player.getInventory().add(stack))
+            player.drop(stack, false);
+    }
+
+    /**
+     * Pipe bomb explosions are player-only, so nobody's pets/mobs/farms get caught in a prank.
+     */
+    @SubscribeEvent
+    public static void onPipeBombDetonate(ExplosionEvent.Detonate event) {
+        if (!PipeBombItem.isPlayerOnlyExplosion())
+            return;
+        event.getAffectedEntities().removeIf(entity -> !(entity instanceof Player));
+    }
+
     @EventBusSubscriber
     public static class ModBusEvents {
         @net.neoforged.bus.api.SubscribeEvent
@@ -68,7 +94,6 @@ public class TFMGCommonEvents {
             AbstractSmallEngineBlockEntity.registerCapabilities(event);
             DistillationOutputBlockEntity.registerCapabilities(event);
             ConcreteHoseBlockEntity.registerCapabilities(event);
-            PumpjackBaseBlockEntity.registerCapabilities(event);
             LargeEngineBlockEntity.registerCapabilities(event);
             CastingBasinBlockEntity.registerCapabilities(event);
             FireboxBlockEntity.registerCapabilities(event);

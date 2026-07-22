@@ -694,17 +694,6 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern(" A ")
                     .pattern("   ")),
 
-    OIL_HAMMER = create(TFMGItems.OIL_HAMMER)
-            .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
-            .viaShaped(b -> b
-                    .define('O', steelIngot())
-                    .define('R', rebar())
-                    .define('A', aluminumSheet())
-                    .pattern("OOA")
-                    .pattern(" R ")
-                    .pattern(" R ")),
-
-
    // FUSE_BLOCK = create(TFMGBlocks.FUSE_BLOCK)
    //         .unlockedBy(TFMGItems.COPPER_WIRE::get)
    //         .viaShaped(b -> b
@@ -833,16 +822,6 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("CBC")
                     .pattern("CCC")),
 
-    HAMMER_HOLDER = create(TFMGBlocks.PUMPJACK_HAMMER)
-            .unlockedBy(TFMGItems.STEEL_INGOT::get)
-            .viaShaped(b -> b
-                    .define('T', steelTruss())
-                    .define('R', rebar())
-                    .define('S', steelIngot())
-                    .pattern("RSR")
-                    .pattern("STS")
-                    .pattern(" T ")),
-
     COMPRESSOR = create(TFMGBlocks.COMPRESSOR)
             .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
             .viaShaped(b -> b
@@ -875,20 +854,6 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("PTP")
                     .pattern("TBT")
                     .pattern("PTP")),
-
-    PUMPJACK_CRANK = create(TFMGBlocks.PUMPJACK_CRANK)
-            .unlockedBy(TFMGItems.STEEL_INGOT::get)
-            .viaShaped(b -> b
-                    .define('M', steelMechanism())
-                    .define('H', heavyPlate())
-                    .define('R', rebar())
-                    .define('C', heavyMachineryCasing())
-                    .define('P', string())
-                    .pattern("P P")
-                    .pattern("HMH")
-                    .pattern("RCR")),
-
-
 
    // COPPER_SPOOL = create(TFMGItems.COPPER_SPOOL)
    //         .unlockedBy(TFMGItems.EMPTY_SPOOL::get)
@@ -1013,16 +978,6 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("SPS")
                     .pattern("BPB")
                     .pattern("CPC")),
-
-    SURFACE_SCANNER = create(TFMGBlocks.SURFACE_SCANNER)
-            .unlockedBy(TFMGBlocks.HEAVY_MACHINERY_CASING::get)
-            .viaShaped(b -> b
-                    .define('H', heavyMachineryCasing())
-                    .define('T', electronTube())
-                    .define('M', steelMechanism())
-                    .pattern("TTT")
-                    .pattern("TTT")
-                    .pattern("MHM")),
 
     ELECTRODE_HOLDER = create(TFMGBlocks.ELECTRODE_HOLDER)
             .unlockedBy(TFMGBlocks.HEAVY_MACHINERY_CASING::get)
@@ -1398,19 +1353,6 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("BAB")
                     .pattern("   ")),
 
-    PUMPJACK_BASE = create(TFMGBlocks.PUMPJACK_BASE)
-            .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
-            .viaShaped(b -> b
-                    .define('Q', industrialPipe())
-                    .define('O', steelPipe())
-                    .define('M', steelMechanism())
-                    .define('C', heavyMachineryCasing())
-                    .define('S', string())
-                    .define('T', steelTank())
-                    .pattern("STS")
-                    .pattern("MCM")
-                    .pattern("OQO")),
-
     MACHINE_INPUT = create(TFMGBlocks.MACHINE_INPUT)
             .unlockedBy(TFMGBlocks.HEAVY_MACHINERY_CASING::get)
             .viaShaped(b -> b
@@ -1484,24 +1426,6 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("II ")),
 
 
-    PUMPJACK_HAMMER_HEAD = create(TFMGBlocks.PUMPJACK_HAMMER_HEAD)
-            .unlockedBy(TFMGItems.STEEL_INGOT::get)
-            .viaShaped(b -> b
-                    .define('B', steelBlock())
-                    .define('P', steelSheet())
-                    .pattern(" ")
-                    .pattern("B")
-                    .pattern("P")),
-
-    LARGE_PUMPJACK_HAMMER_HEAD = create(TFMGBlocks.LARGE_PUMPJACK_HAMMER_HEAD)
-            .unlockedBy(TFMGItems.STEEL_INGOT::get)
-            .viaShaped(b -> b
-                    .define('B', steelBlock())
-                    .define('P', steelSheet())
-                    .pattern("P")
-                    .pattern("B")
-                    .pattern(" ")),
-
     GAS_LAMP = create(TFMGBlocks.GAS_LAMP)
             .unlockedBy(TFMGBlocks.CAST_IRON_BARS::get)
             .viaShaped(b -> b
@@ -1536,24 +1460,6 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("CC ")
                     .pattern("TT ")
                     .pattern("FF ")),
-
-    PUMPJACK_HAMMER_CONNECTOR = create(TFMGBlocks.PUMPJACK_HAMMER_CONNECTOR)
-            .unlockedBy(TFMGItems.STEEL_INGOT::get)
-            .viaShaped(b -> b
-                    .define('H', TFMGBlocks.PUMPJACK_HAMMER_PART)
-                    .define('R', rebar())
-                    .pattern("   ")
-                    .pattern("RHR")
-                    .pattern("   ")),
-
-    LARGE_PUMPJACK_HAMMER_CONNECTOR = create(TFMGBlocks.LARGE_PUMPJACK_HAMMER_CONNECTOR)
-            .unlockedBy(TFMGItems.STEEL_INGOT::get)
-            .viaShaped(b -> b
-                    .define('H', TFMGBlocks.LARGE_PUMPJACK_HAMMER_PART)
-                    .define('R', rebar())
-                    .pattern("   ")
-                    .pattern("RHR")
-                    .pattern("   ")),
 
     ENGINE_GEARBODX = create(TFMGBlocks.ENGINE_GEARBOX)
             .unlockedBy(TFMGItems.STEEL_MECHANISM::get)

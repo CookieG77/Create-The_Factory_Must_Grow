@@ -112,10 +112,6 @@
 	"block.tfmg.winding_machine.tooltip.summary": "Changes the amount of turns on spools and the resistance on resistors",
 	"block.tfmg.winding_machine.tooltip.behaviour1": "Right click with your desired item (Electromagnetic Coil or Resistor) and then right click with either a Copper spool for Coils and an Aluminium one for resistors. Interact with it to set the amount of turns/ohms and power with rotation. Use the Engineers goggles to see when your winding is finished.",
 
-	"block.tfmg.surface_scanner.tooltip.summary": "Helps to find chunks with oil",
-	"block.tfmg.surface_scanner.tooltip.condition1": "When powered from below with a Machine Input",
-	"block.tfmg.surface_scanner.tooltip.behaviour1": "The machines top 5x5 grid shows the surrounding chunks with its chunk in the center, the chunks that have atleast 1 oil deposit in them should glow. If the surface does not start to glow within a few seconds then it is likely that there are no oil deposits nearby. Chunks can be seen ingame with F3+G",
-
 	"block.tfmg.casting_basin.tooltip.summary": "Casts ingots",
 	"block.tfmg.casting_basin.tooltip.condition1": "When supplied with molten steel",
 	"block.tfmg.casting_basin.tooltip.behaviour1": "Creates steel ingots which must have a sufficent output as the internal storage of the basin is limited",

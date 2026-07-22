@@ -43,7 +43,6 @@ public class TFMGPartialModels {
             LARGE_SWITCH_BUFFER = block("large_switch/buffer"),
             LARGE_SWITCH_ARM = block("large_switch/connector"),
             DISTILLATION_CONTROLLER_DIAL = block("steel_distillation_controller/dial"),
-            PUMPJACK_CRANK = block("pumpjack_crank/crank"),
             TOWER_GAUGE = block("distillation_tower/gauge"),
             ROTOR = block("rotor/block"),
             VOLTMETER_DIAL = block("voltmeter/dial"),
@@ -95,8 +94,7 @@ public class TFMGPartialModels {
             LARGE_CENTRIFUGE_BOTTOM = block("industrial_mixer/large_centrifuge_bottom"),
             LARGE_CENTRIFUGE_MIDDLE = block("industrial_mixer/large_centrifuge_middle"),
             LARGE_CENTRIFUGE_TOP = block("industrial_mixer/large_centrifuge_top"),
-            LARGE_CENTRIFUGE_ALONE = block("industrial_mixer/large_centrifuge_alone"),
-            SURFACE_SCANNER_LIGHT = block("surface_scanner/light");
+            LARGE_CENTRIFUGE_ALONE = block("industrial_mixer/large_centrifuge_alone");
 
     //Display Segments
 

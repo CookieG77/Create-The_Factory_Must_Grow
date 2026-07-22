@@ -51,15 +51,11 @@ public class TFMGShapes {
                     .forHorizontal(SOUTH),
             ENGINE_FRONT = shape(0, 0, 1, 16, 7, 16).add(3, 7, 1, 13, 12, 16)
                     .forDirectional(SOUTH),
-            PUMPJACK_HAMMER_PART = shape(0, 2, 0, 16, 14, 16)
-                    .forDirectional(),
             RADIAL_ENGINE_SINGLE = shape(1, 4, 1, 15, 12, 15)
                     .forDirectional(),
             RADIAL_ENGINE_SIDE = shape(1, 4, 1, 15, 16, 15)
                     .forDirectional(),
             RADIAL_ENGINE_MIDDLE = shape(1, 0, 1, 15, 16, 15)
-                    .forDirectional(),
-            PUMPJACK_HEAD = shape(1, 0, -4, 15, 14, 24)
                     .forDirectional(),
             COMPACT_ENGINE_VERTICAL = shape(3, 0, 3, 13, 14, 14)
                     .forDirectional(),
@@ -141,15 +137,12 @@ public class TFMGShapes {
     public static final VoxelShape
 
             EMPTY = shape(0, 0, 0, 0, 0, 0).build(),
-            PUMPJACK_CRANK = shape(0, 0, 0, 16, 8, 16).build(),
             INDUSTRIAL_PIPE = shape(4, 0, 4, 12, 16, 12).build(),
             FLARESTACK = shape(3, 0, 3, 13, 14, 14).build(),
-            PUMPJACK_BASE = shape(3, 0, 3, 13, 16, 13).build(),
             TRAFFIC_LIGHT = shape(3, 0, 3, 13, 16, 13).build(),
             REBAR_FLOOR = shape(0, 4, 0, 16, 12, 16)
                     .build(),
             GAS_LAMP = shape(1, 0, 1, 15, 22, 15).build(),
-            SURFACE_SCANNER = shape(2, 0, 2, 14, 14, 14).build(),
             FULL = shape(0, 0, 0, 16, 16, 16).build(),
             ELECTRIC_POST = shape(4, 0, 4, 12, 16, 12).build(),
             SLAB = shape(0, 0, 0, 16, 8, 16).build();

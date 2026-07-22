@@ -22,7 +22,6 @@ import com.drmangotea.tfmg.content.items.weapons.flamethrover.FlamethrowerItem;
 import com.drmangotea.tfmg.content.items.weapons.lithium_blade.LitLithiumBladeItem;
 import com.drmangotea.tfmg.content.items.weapons.lithium_blade.LithiumBladeItem;
 import com.drmangotea.tfmg.content.items.weapons.quad_potato_cannon.QuadPotatoCannonItem;
-import com.drmangotea.tfmg.content.machinery.oil_processing.OilHammerItem;
 import com.drmangotea.tfmg.registry.TFMGTags.TFMGItemTags;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
@@ -186,9 +185,6 @@ public class TFMGItems {
             .tag(TFMGItemTags.DUSTS_COAL_COKE.tag, TFMGItemTags.BLAST_FURNACE_FUEL.tag, Tags.Items.DUSTS)
             .register();
 
-    public static final ItemEntry<OilHammerItem> OIL_HAMMER = REGISTRATE.item("oil_hammer", OilHammerItem::new)
-            .register();
-
     public static final ItemEntry<CoalCokeItem> COAL_COKE = REGISTRATE.item("coal_coke", CoalCokeItem::new)
             .register();
 
@@ -267,6 +263,11 @@ public class TFMGItems {
 
     public static final ItemEntry<PipeBombItem>
             PIPE_BOMB = REGISTRATE.item("pipe_bomb", PipeBombItem::new)
+            .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/pipe_bomb_3d"))
+                    .override()
+                        .predicate(ResourceLocation.withDefaultNamespace("custom_model_data"), 1F)
+                        .model(p.getExistingFile(TFMG.asResource("item/pipe_bomb_3d_sticky")))
+                    .end())
             .register();
 
     public static final ItemEntry<CylinderItem>

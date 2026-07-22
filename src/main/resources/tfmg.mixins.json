@@ -11,6 +11,7 @@
     "FluidTankBlockEntityMixin",
     "PipeAttachmentModelMixin",
     "RecipeProviderMixin",
+    "StickyPipeBombMenuMixin",
     "UtilMixin",
     "accessor.FluidTankBlockEntityAccessor",
     "accessor.FlywheelBlockEntityMixin",

@@ -215,19 +215,6 @@ public class TFMGTexts {
         }
     }
 
-    // Surface Scanner Tooltips
-    public static class SurfaceScanner {
-        public static LangBuilder deposits(int deposits) {
-            return TFMGLang.translate("goggles.surface_scanner.deposits_found", TFMGLang.number(deposits)).style(ChatFormatting.GREEN);
-        }
-        public static LangBuilder noDeposit() {
-            return TFMGLang.translate("goggles.surface_scanner.no_deposit").style(ChatFormatting.RED);
-        }
-        public static LangBuilder noRotation() {
-            return TFMGLang.translate("goggles.surface_scanner.no_rotation").style(ChatFormatting.DARK_RED);
-        }
-    }
-
     // Vat Tooltips
     public static class Vat {
         public static LangBuilder operation(String operationId) {

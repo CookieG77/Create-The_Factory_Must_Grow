@@ -6,11 +6,6 @@
   "create.goggles.item_storage": "Item Storage:",
   "tfmg.goggles.item_storage_empty": "*Empty*",
 
-  "tfmg.surface_scanner.header": "Surface Scanner",
-  "tfmg.goggles.surface_scanner.no_deposit": "No Deposits Found",
-  "tfmg.goggles.surface_scanner.no_rotation": "Not Enough Rotation (Needs 64rpm)",
-  "tfmg.goggles.surface_scanner.deposits_found": "%s Chunks With Oil Deposits Found",
-
   "tfmg.distillation_tower.header": "Distillation Tower Info:",
   "tfmg.goggles.distillation_tower.tank_not_found": "Steel Fluid Tank Not Found",
   "tfmg.goggles.distillation_tower.level": "Heat Level: %1$s",
@@ -33,15 +28,6 @@
   "tfmg.coke_oven.header": "Coke Oven:",
   "tfmg.goggles.coke_oven.progress": "Progress: %1$s",
 
-  "tfmg.pumpjack.header": "Pumpjack Info:",
-  "tfmg.goggles.pumpjack.reserves": "Deposit Reserves: ",
-  "tfmg.goggles.pumpjack.part_missing": "Hammer or Crank Missing",
-  "tfmg.goggles.pumpjack.wrong_rotation1": "The Pumpjack Base is oriented incorrectly, the red marker must",
-  "tfmg.goggles.pumpjack.wrong_rotation2": "face away from the Pumpjack Hammer Holder",
-  "tfmg.goggles.pumpjack_fluid_storage": "Fluid Tank Info:",
-  "tfmg.goggles.pumpjack.fluid_amount": "Fluid Amount:",
-  "tfmg.goggles.pumpjack.deposit_info": "Deposit Info:",
-  "tfmg.pumpjack_deposit_amount": "%1$s Buckets",
   "tfmg.goggles.zero": "Machine Invalid",
 
   "tfmg.goggles.progress": "Progress: %1$s",
@@ -129,6 +115,11 @@
 
   "death.attack.tfmg.blast_furnace": "%1$s was turned in carbon steel",
   "death.attack.tfmg.blast_furnace.player": "%1$s was thrown into a blast furnace",
+
+  "death.attack.tfmg.pipe_bomb_trap": "%1$s opened a package they shouldn't have",
+  "death.attack.tfmg.pipe_bomb_trap.player": "%1$s opened a package they shouldn't have",
+
+  "tfmg.tooltip.pipe_bomb_sticky": "Covered in slime - can't be dropped once triggered",
 
   "tfmg.tooltip.fuse": "Rating: %1$s",
   "tfmg.tooltip.resistor": "Resistance: %1$s",
@@ -241,10 +232,6 @@
   "effect.tfmg.hellfire": "Hellfire",
 
   "tfmg.wires.removed_data": "Data Removed",
-
-  "tfmg.oil_hammer.reserves": "Oil Reserves: %1$s",
-
-
 
   "tfmg.subtitle.engine_sounds": "Engine Sounds",
   "tfmg.subtitle.diesel_engine_sounds": "Diesel Engine Sounds",

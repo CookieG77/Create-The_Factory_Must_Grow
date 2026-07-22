@@ -1,47 +1,23 @@
 package com.drmangotea.tfmg.mixin;
 
-import com.mojang.logging.LogUtils;
-import net.minecraft.SharedConstants;
 import net.minecraft.Util;
-import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
-
-import java.time.Duration;
-import java.time.Instant;
-import java.util.function.Consumer;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Util.class)
 public class UtilMixin {
-    @Shadow
-    private static Consumer<String> thePauser;
 
-
-    @Shadow
-    static final Logger LOGGER = LogUtils.getLogger();
-
-    @Overwrite
-    public static void logAndPauseIfInIde(String error) {
-
-        if(error.contains("Detected setBlock in a far chunk"))
-            return;
-
-        LOGGER.error(error);
-        if (SharedConstants.IS_RUNNING_WITH_JDWP) {
-            doPause(error);
-        }
-
-    }
-    @Shadow
-    private static void doPause(String message) {
-        Instant instant = Instant.now();
-        LOGGER.warn("Did you remember to set a breakpoint here?");
-        boolean flag = Duration.between(instant, Instant.now()).toMillis() > 500L;
-        if (!flag) {
-            thePauser.accept(message);
-        }
-
+    /**
+     * Just silences one specific noisy warning ("setBlock in a far chunk") - everything else
+     * should behave exactly like vanilla, including for other mods that also hook this method,
+     * so this only cancels the call for that one case instead of replacing the whole method.
+     */
+    @Inject(method = "logAndPauseIfInIde", at = @At("HEAD"), cancellable = true)
+    private static void tfmg$suppressFarChunkWarning(String error, CallbackInfo ci) {
+        if (error.contains("Detected setBlock in a far chunk"))
+            ci.cancel();
     }
 
 }

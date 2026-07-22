@@ -67,16 +67,6 @@ public class TFMGPonderTags {
                 .add(TFMGBlocks.STEEL_DISTILLATION_CONTROLLER)
                 .add(TFMGBlocks.STEEL_DISTILLATION_OUTPUT)
                 .add(TFMGBlocks.INDUSTRIAL_PIPE)
-                .add(TFMGBlocks.SURFACE_SCANNER)
-                .add(TFMGBlocks.PUMPJACK_BASE)
-                .add(TFMGBlocks.PUMPJACK_CRANK)
-                .add(TFMGBlocks.PUMPJACK_HAMMER)
-                .add(TFMGBlocks.PUMPJACK_HAMMER_CONNECTOR)
-                .add(TFMGBlocks.PUMPJACK_HAMMER_HEAD)
-                .add(TFMGBlocks.PUMPJACK_HAMMER_PART)
-                .add(TFMGBlocks.LARGE_PUMPJACK_HAMMER_CONNECTOR)
-                .add(TFMGBlocks.LARGE_PUMPJACK_HAMMER_HEAD)
-                .add(TFMGBlocks.LARGE_PUMPJACK_HAMMER_PART)
     ;
 
         //HELPER.addToTag(ENGINES)

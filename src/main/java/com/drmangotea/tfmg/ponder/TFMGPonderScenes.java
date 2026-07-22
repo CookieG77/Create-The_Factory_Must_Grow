@@ -31,8 +31,6 @@ public class TFMGPonderScenes {
         ).addStoryBoard("chemical_vat", MiscTFMGScenes::chemical_vat, TFMGPonderTags.CHEMICAL_VAT);
         HELPER.forComponents(TFMGBlocks.COKE_OVEN)
                 .addStoryBoard("coke_oven", MetallurgyScenes::coke_oven, TFMGPonderTags.METALLURGY);
-        HELPER.forComponents(TFMGBlocks.PUMPJACK_BASE,TFMGBlocks.PUMPJACK_CRANK,TFMGBlocks.PUMPJACK_HAMMER)
-                .addStoryBoard("pumpjack", MiscTFMGScenes::pumpjack, TFMGPonderTags.OIL_PROCESSING);
        // HELPER.forComponents(TFMGBlocks.REGULAR_ENGINE, TFMGBlocks.TURBINE_ENGINE, TFMGBlocks.RADIAL_ENGINE)
        //         .addStoryBoard("engines", MiscTFMGScenes::engines, TFMGPonderTags.ENGINES);
         // Add our fluid manipulators to Create's ponder scenes

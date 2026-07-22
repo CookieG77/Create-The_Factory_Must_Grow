@@ -28,11 +28,5 @@ public class TFMGRegistrateTags {
     }
     private static void genBlockTags(RegistrateTagsProvider<Block> provIn) {
         TagGen.CreateTagsProvider<Block> prov = new TagGen.CreateTagsProvider<>(provIn, Block::builtInRegistryHolder);
-
-        prov.tag(TFMGTags.TFMGBlockTags.PUMPJACK_HEAD.tag)
-                .add(Blocks.IRON_BLOCK);
-
-        prov.tag(TFMGTags.TFMGBlockTags.PUMPJACK_PART.tag)
-                .addTag(TFMGTags.TFMGBlockTags.PUMPJACK_SMALL_PART.tag);
     }
 }
